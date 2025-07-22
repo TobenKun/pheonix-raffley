@@ -16,5 +16,7 @@ defmodule RaffleyWeb.RuleController do
 
   def show(conn, %{"id" => id}) do
     rule = Rules.get_rule(id)
+
+    render(conn, :show, rule: rule)
   end
 end

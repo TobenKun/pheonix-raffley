@@ -22,5 +22,6 @@ defmodule Raffley.Rules do
   end
 
   def get_rule(id) when is_binary(id) do
+    String.to_integer(id) |> get_rule()
   end
 end
