@@ -8,7 +8,7 @@ defmodule RaffleyWeb.EstimatorLive do
   def mount(_params, _session, socket) do
     socket = assign(socket, tickets: 0, price: 3)
 
-    IO.inspect(socket)
+    IO.inspect(self(), label: "MOUNT")
 
     {:ok, socket}
   end
@@ -17,6 +17,8 @@ defmodule RaffleyWeb.EstimatorLive do
   # 피닉스는 live_view 모듈에서 render 함수가 없으면 이름이 동일한 heex파일을 찾아서 render 함수로 만들어줌(컴파일 시점에)
   # phx-value-XXX 는 이벤트 함수에 %{"XXX" => "value"} 같은 맵으로 전달한다.
   def render(assigns) do
+    IO.inspect(self(), label: "RENDER")
+
     ~H"""
     <div class="estimator">
       <h1>Raffle Esimator</h1>
@@ -45,9 +47,9 @@ defmodule RaffleyWeb.EstimatorLive do
   end
 
   def handle_event("add", %{"quantity" => quantity}, socket) do
-    socket = update(socket, :tickets, &(&1 + String.to_integer(quantity)))
+    IO.inspect(self(), label: "ADD")
 
-    IO.inspect(socket)
+    socket = update(socket, :tickets, &(&1 + String.to_integer(quantity)))
 
     {:noreply, socket}
   end
