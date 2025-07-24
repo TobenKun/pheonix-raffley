@@ -6,6 +6,10 @@ defmodule RaffleyWeb.EstimatorLive do
   Controller의connection(conn) 구조체처럼 socket 구조체를 사용한다.
   """
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Process.send_after(self(), :tick, 2000)
+    end
+
     socket = assign(socket, tickets: 0, price: 3)
 
     IO.inspect(self(), label: "MOUNT")
@@ -59,8 +63,15 @@ defmodule RaffleyWeb.EstimatorLive do
     {:noreply, socket}
   end
 
+  # 브라우저(클라이언트) 에서 보낸 이벤트는 handle_event/3 함수로 받는다.
   def handle_event("set-price", %{"price" => price}, socket) do
     socket = assign(socket, :price, String.to_integer(price))
     {:noreply, socket}
+  end
+
+  # 프로세스가 보낸 메시지는 handle_info/2 함수로 받는다.
+  def handle_info(:tick, socket) do
+    Process.send_after(self(), :tick, 2000)
+    {:noreply, update(socket, :tickets, &(&1 + 10))}
   end
 end
