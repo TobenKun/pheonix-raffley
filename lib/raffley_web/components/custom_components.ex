@@ -29,6 +29,8 @@ defmodule RaffleyWeb.CustomComponents do
 
   def banner(assigns) do
     assigns = assign(assigns, :emoji, ~W(😜 😂 😢 😎) |> Enum.random())
+    # assigns = assign_new(assigns, :emoji, fn -> ~w(😜 😂 😢 😎) |> Enum.random() end)
+    # assign_new()를 사용해 키가 없을 때만 등록할 수 있음 (기본값 설정 등)
 
     ~H"""
     <div class="banner">
