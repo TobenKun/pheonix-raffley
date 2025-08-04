@@ -31,17 +31,21 @@ defmodule RaffleyWeb.RaffleLive.Index do
   attr :raffle, Raffley.Raffle, required: true
 
   def raffle_card(assigns) do
+    # <.link href={~p"/raffles/#{@raffle.id}"}>
+    # https://chatgpt.com/s/t_68903dfe5f808191bffce4da83e8fdec 참고
     ~H"""
-    <div class="card">
-      <img src={@raffle.image_path} />
-      <h2>{@raffle.prize}</h2>
-      <div class="details">
-        <div class="price">
-          ${@raffle.ticket_price} / ticket
+    <.link navigate={~p"/raffles/#{@raffle}"}>
+      <div class="card">
+        <img src={@raffle.image_path} />
+        <h2>{@raffle.prize}</h2>
+        <div class="details">
+          <div class="price">
+            ${@raffle.ticket_price} / ticket
+          </div>
+          <.badge status={@raffle.status} />
         </div>
-        <.badge status={@raffle.status} />
       </div>
-    </div>
+    </.link>
     """
   end
 end

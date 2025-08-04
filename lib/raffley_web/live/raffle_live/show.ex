@@ -5,10 +5,13 @@ defmodule RaffleyWeb.RaffleLive.Show do
   import RaffleyWeb.CustomComponents
 
   def mount(_params, _session, socket) do
+    IO.inspect(self(), label: "MOUNT")
     {:ok, socket}
   end
 
-  def handle_params(%{"id" => id}, uri, socket) do
+  def handle_params(%{"id" => id}, _uri, socket) do
+    IO.inspect(self(), label: "HANDLE PARAMS")
+
     raffle = Raffles.get_raffle(id)
 
     socket =
@@ -21,6 +24,8 @@ defmodule RaffleyWeb.RaffleLive.Show do
   end
 
   def render(assigns) do
+    IO.inspect(self(), label: "RENDER")
+
     ~H"""
     <div class="raffle-show">
       <div class="raffle">
@@ -52,8 +57,10 @@ defmodule RaffleyWeb.RaffleLive.Show do
       <h4>Featured Raffles</h4>
       <ul class="raffles">
         <li :for={raffle <- @raffles}>
-          <img src={raffle.image_path} />
-          {raffle.prize}
+          <.link navigate={~p"/raffles/#{raffle}"}>
+            <img src={raffle.image_path} />
+            {raffle.prize}
+          </.link>
         </li>
       </ul>
     </section>
