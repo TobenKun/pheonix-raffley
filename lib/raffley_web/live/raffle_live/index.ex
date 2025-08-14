@@ -89,7 +89,11 @@ defmodule RaffleyWeb.RaffleLive.Index do
   end
 
   def handle_event("filter", params, socket) do
-    IO.inspect(params)
+    socket =
+      socket
+      |> assign(:form, to_form(params))
+      |> stream(:raffles, Raffles.filter_raffles(params), reset: true)
+
     {:noreply, socket}
   end
 end
