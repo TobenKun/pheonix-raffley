@@ -17,6 +17,8 @@ defmodule RaffleyWeb.RaffleLive.Index do
     {:ok, socket}
   end
 
+  # url 파라미터에 기반해 변하는 것들만 여기서 assign 할것
+  # 변하지 않는 상태도 여기에 두면 patch 할 때마다 호출됨 -> mount 콜백으로
   def handle_params(params, _uri, socket) do
     socket =
       socket
