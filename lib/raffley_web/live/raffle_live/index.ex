@@ -17,15 +17,13 @@ defmodule RaffleyWeb.RaffleLive.Index do
     {:ok, socket}
   end
 
-<<<<<<< HEAD
   # url 파라미터에 기반해 변하는 것들만 여기서 assign 할것
   # 변하지 않는 상태도 여기에 두면 patch 할 때마다 호출됨 -> mount 콜백으로
-=======
+
   # push_patch 나 patch를 쓰는 경우 필연적으로 def handle_params 함수를 쓸 수 밖에 없다.
   # 이 때는 mount가 호출되지 않기 때문에 LiveView state를 갱신하기 위해서는 이 함수가 필요하다.
   # 패치나 푸시 패치를 사용하지 않으면 마운트만 써도 무방
 
->>>>>>> c48a08d (mvp: use patch instead of navigate)
   def handle_params(params, _uri, socket) do
     socket =
       socket
