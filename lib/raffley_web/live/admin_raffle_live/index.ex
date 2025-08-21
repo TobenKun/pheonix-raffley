@@ -19,7 +19,19 @@ defmodule RaffleyWeb.AdminRaffleLive.Index do
       <.header>
         {@page_title}
       </.header>
-      <.table id="raffles" rows={@streams.raffles}></.table>
+      <.table id="raffles" rows={@streams.raffles}>
+        <:col :let={{_dom_id, raffle}} label="Prize">
+          <.link navigate={~p"/raffles/#{raffle}"}>
+            {raffle.prize}
+          </.link>
+        </:col>
+        <:col :let={{_dom_id, raffle}} label="Status">
+          <.badge status={raffle.status} />
+        </:col>
+        <:col :let={{_dom_id, raffle}} label="Ticket Price">
+          {raffle.ticket_price}
+        </:col>
+      </.table>
     </div>
     """
   end
